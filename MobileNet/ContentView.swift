@@ -5,12 +5,24 @@
 //  Created by Ahmad Nabili on 16/09/21.
 //
 
+import CoreTelephony
 import SwiftUI
 
 struct ContentView: View {
+    let noAvailability = CTTelephonyNetworkInfo()
+        .serviceSubscriberCellularProviders?
+        .values
+        .compactMap { $0.mobileCountryCode }
+        .isEmpty ?? false
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        HStack {
+            VStack(spacing: 8){
+                Spacer()
+                Text("Sim Card: \(noAvailability ? "Not Detected" : "Detected")")
+            }
+            Spacer()
+        }.padding()
     }
 }
 
